@@ -1,0 +1,114 @@
+/* GLOBAL FIX */
+* {
+  box-sizing: border-box;
+}
+
+/* NAVBAR BASE */
+.navbar {
+  width: 100%;
+  height: 70px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo a {
+  font-size: 26px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #0077ff;
+}
+
+/* NAV LINKS */
+.navbar-links,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.navbar-links a,
+.navbar-right a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+/* BUTTONS */
+.btn-login {
+  background: transparent;
+  border: 1.5px solid #0077ff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-register {
+  background: #0077ff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+/* HAMBURGER ICON */
+.menu-icon {
+  width: 30px;
+  height: 24px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-icon span {
+  width: 100%;
+  height: 3px;
+  background: #0077ff;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+/* Rotate animation when active */
+.menu-icon.active span:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+.menu-icon.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-icon.active span:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* MOBILE MENU */
+@media (max-width: 900px) {
+  .menu-icon {
+    display: flex;
+  }
+
+  .navbar-links,
+  .navbar-right {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    padding: 20px 0;
+    gap: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-links.open,
+  .navbar-right.open {
+    display: flex;
+  }
+}

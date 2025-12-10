@@ -1,0 +1,82 @@
+.landing-container {
+  height: 100vh;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.55);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(3px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.overlay p {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.buttons button {
+  padding: 12px 26px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.buttons button:hover {
+  background-color: #1e40af;
+  transform: translateY(-2px);
+}
+
+/* 🔹 Responsive Design */
+@media (max-width: 768px) {
+  .overlay h1 {
+    font-size: 2rem;
+  }
+
+  .overlay p {
+    font-size: 1rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    width: 80%;
+  }
+
+  .buttons button {
+    width: 100%;
+  }
+}

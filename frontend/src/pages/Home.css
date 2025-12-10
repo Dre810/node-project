@@ -1,0 +1,40 @@
+.home-container {
+  height: 90vh;
+  background: linear-gradient(to right, #1f2937, #111827);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.home-container h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  font-weight: 800;
+  color: #3b82f6;
+}
+
+.home-container p {
+  font-size: 1.2rem;
+  max-width: 500px;
+  opacity: 0.9;
+}
+
+.explore-btn {
+  margin-top: 20px;
+  background: #3b82f6;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: white;
+}
+
+.explore-btn:hover {
+  background: #1d4ed8;
+}
