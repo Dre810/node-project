@@ -14,8 +14,6 @@ app.use("/api/users", userRoutes);
 const mpesaRoutes = require("./routes/mpesa");
 app.use("/api/payment", mpesaRoutes);
 
-const eventRoutes = require("./routes/eventRoutes");
-app.use("/api/events", eventRoutes);
 
 // Test route
 app.get("/", (req, res) => {
