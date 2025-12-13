@@ -1,50 +1,45 @@
 .checkout-container {
   max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  border-radius: 12px;
-  background: #f5f5f5;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f4f4f4;
+  border-radius: 10px;
   text-align: center;
 }
 
-.event-details img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 15px;
+.checkout-container ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
 }
 
-.payment-form {
-  margin-top: 20px;
+.checkout-container li {
+  margin-bottom: 0.5rem;
 }
 
-.payment-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-.payment-form input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 6px;
+.checkout-container input {
+  padding: 0.5rem;
+  width: 80%;
+  margin-bottom: 1rem;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 16px;
 }
 
-.payment-form button {
-  padding: 12px 20px;
-  font-size: 16px;
-  background-color: #007bff;
+.checkout-container button {
+  padding: 0.7rem 1.5rem;
+  background: #4caf50;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s ease;
 }
 
-.payment-form button:hover {
-  background-color: #0056b3;
+.checkout-container button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.payment-message {
+  margin-top: 1rem;
+  font-weight: bold;
 }

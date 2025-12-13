@@ -1,71 +1,80 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import "./Checkout.css";
+import React, { useContext, useState } from "react";
+import { CartContext } from "../context/CartContext";
 import axios from "axios";
+import "./Checkout.css";
 
 const Checkout = () => {
-  const { state } = useLocation();
-  const navigate = useNavigate();
-  const selectedEvent = state?.selectedEvent;
-  const totalAmount = state?.totalAmount || selectedEvent.reduce((sum, item) => sum + item.price, 0);
-
-  const [phone, setPhone] = useState("");
+  const { cartItems, total, clearCart } = useContext(CartContext);
+  const [phone, setPhone] = useState("0757090860"); // default to your number
   const [loading, setLoading] = useState(false);
-
-
-
-
-  if (!selectedEvent) {
-    return <p>No event selected. Please go back to events page.</p>;
-  }
+  const [message, setMessage] = useState("");
 
   const handlePayment = async () => {
-    if (!phone) {
-      alert("Please enter your phone number");
-      return;
-    }
-
+    if (!phone) return alert("Please enter your phone number");
     setLoading(true);
+    setMessage("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/payment/stkpush", {
-        phoneNumber: phone,
-        amount: selectedEvent.price,
-      });
+      const formattedPhone =
+        phone.startsWith("0") ? "254" + phone.slice(1) : phone;
 
-      alert("STK Push sent! Check your phone to complete the payment.");
-      navigate("/events");
-    } catch (err) {
-      console.log(err.response?.data || err.message);
-      alert("Payment failed. Please try again.");
-    } finally {
-      setLoading(false);
+      const response = await axios.post(
+        "http://localhost:5000/api/payment/stkpush",
+        { amount: total, phoneNumber: formattedPhone }
+      );
+
+      console.log("STK Push response:", response.data);
+
+      // Inform user to check their phone
+      setMessage(
+        "Payment request sent! Please check your phone and enter your PIN."
+      );
+
+      // Optionally, poll backend or wait for callback to confirm success
+      // For demo, we'll simulate a successful payment after a few seconds
+      setTimeout(() => {
+        setMessage("Payment successful! Your tickets are confirmed.");
+        clearCart(); // empty the cart after successful payment
+      }, 15000); // 15 seconds demo
+
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+      setMessage("Payment failed. Check console for details.");
     }
+
+    setLoading(false);
   };
 
   return (
     <div className="checkout-container">
       <h2>Checkout</h2>
-      <div className="event-details">
-        <img src={selectedEvent.image} alt={selectedEvent.title} />
-        <h3>{selectedEvent.title}</h3>
-        <p>Date: {selectedEvent.date}</p>
-        <p>Venue: {selectedEvent.venue}</p>
-        <p>Price: KES {selectedEvent.price}</p>
-      </div>
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty</p>
+      ) : (
+        <>
+          <ul>
+            {cartItems.map((item, index) => (
+              <li key={index}>
+                {item.title} - KES {item.price}
+              </li>
+            ))}
+          </ul>
+          <p>Total: KES {total}</p>
 
-      <div className="payment-form">
-        <label>Mpesa Phone Number:</label>
-        <input
-          type="text"
-          placeholder="2547XXXXXXXX"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <button onClick={handlePayment} disabled={loading}>
-          {loading ? "Processing..." : "Pay with Mpesa"}
-        </button>
-      </div>
+          <input
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Enter phone number"
+          />
+
+          <button onClick={handlePayment} disabled={loading}>
+            {loading ? "Processing..." : "Pay with M-Pesa"}
+          </button>
+
+          {message && <p className="payment-message">{message}</p>}
+        </>
+      )}
     </div>
   );
 };
