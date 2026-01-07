@@ -5,12 +5,16 @@ import Login from "./pages/Login";
 import Events from "./pages/Events";
 import Checkout from "./pages/Checkout";
 import Cart from "./pages/Cart";
+import AdminStats from "./admin/AdminStats";
 
 import AdminLayout from "./admin/AdminLayout";
 import AdminDashboard from "./admin/AdminDashboard";
 import ManageEvents from "./admin/ManageEvents";
 import Users from "./admin/Users";
 import Reports from "./admin/Reports";
+
+import AdminRoute from "./admin/AdminRoute";
+
 
 function App() {
   return (
@@ -29,9 +33,21 @@ function App() {
     <Route path="events" element={<ManageEvents />} />
     <Route path="users" element={<Users />} />
     <Route path="reports" element={<Reports />} />
+    <Route path="/admin/dashboard" element={<AdminStats />} />
+
+    <Route
+  path="/admin/dashboard"
+  element={
+    <AdminRoute>
+      <AdminStats />
+    </AdminRoute>
+  }
+/>
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
+

@@ -6,25 +6,40 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await response.json();
+
       if (response.ok) {
-        localStorage.setItem("userInfo", JSON.stringify(data.user));
-        alert("Login Successful!");
-        navigate("/events"); // Redirect to landing or dashboard
+        // Save user info in localStorage
+        localStorage.setItem("userInfo", JSON.stringify(data));
+
+        alert("Login successful!");
+
+        // Redirect based on admin or normal user
+        if (data.isAdmin) {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/events");
+        }
       } else {
-        alert(data.message);
+        alert(data.message || "Invalid credentials");
       }
     } catch (err) {
       alert("Error connecting to server");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,7 +62,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
         <p>
           Don't have an account?{" "}
